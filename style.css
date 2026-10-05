@@ -1,0 +1,90 @@
+/* CampusCast – Laboratory Activity 2 */
+:root {
+  --cc-primary: #2a5db0;
+  --cc-primary-dark: #1b3f7a;
+  --cc-bg: #f2f5fa;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cc-bg);
+  padding-top: 72px; /* room for the fixed navbar */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-nav { background: linear-gradient(90deg, var(--cc-primary-dark), var(--cc-primary)); }
+.cc-nav .nav-link { opacity: .85; }
+.cc-nav .nav-link:hover,
+.cc-nav .nav-link.active { opacity: 1; font-weight: 600; }
+.cc-nav .form-control { min-width: 220px; }
+
+.cc-main { flex: 1 0 auto; padding-top: 1.5rem; padding-bottom: 2rem; }
+.cc-section { margin-bottom: 2.25rem; scroll-margin-top: 84px; }
+
+.cc-card { border: 0; border-radius: 1rem; box-shadow: 0 2px 10px rgba(20, 40, 80, .08); }
+
+/* ----- hero card ----- */
+.cc-hero {
+  color: #fff;
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(20, 40, 80, .18);
+  background: linear-gradient(135deg, #3b6fb6, #6a98d1);
+}
+.hero-sun   { background: linear-gradient(135deg, #f6a21e, #f2631f); }
+.hero-cloud { background: linear-gradient(135deg, #5c6f91, #8aa0c0); }
+.hero-rain  { background: linear-gradient(135deg, #2c4a73, #4f7cac); }
+.hero-storm { background: linear-gradient(135deg, #232b45, #4b3f72); }
+.hero-night { background: linear-gradient(135deg, #101a3a, #2b3a67); }
+.hero-icon { font-size: 4.5rem; line-height: 1; }
+.hero-temp { font-size: 3.5rem; font-weight: 700; line-height: 1; }
+.hero-line {
+  background: rgba(255, 255, 255, .18);
+  border-radius: .6rem;
+  padding: .5rem .75rem;
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+/* ----- stat tiles ----- */
+.stat .stat-icon { font-size: 1.5rem; }
+.stat .stat-label { font-size: .8rem; color: #6b778c; }
+.stat .stat-value { font-size: 1.35rem; font-weight: 700; }
+
+/* ----- readiness ----- */
+.readiness-line { font-size: 1.1rem; font-weight: 600; }
+#readinessList .list-group-item { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; padding-left: 0; padding-right: 0; }
+#readinessList .rl-label { width: 150px; font-weight: 600; }
+#readinessList .rl-advice { flex: 1 1 220px; color: #4a5568; }
+
+/* ----- outdoor cards ----- */
+.activity-icon { font-size: 2rem; }
+
+/* ----- hourly table ----- */
+.cc-past { opacity: .5; }
+.table > :not(caption) > * > * { padding: .65rem .75rem; }
+
+/* ----- api inspector ----- */
+.cc-pre {
+  background: #0f172a;
+  color: #d1e3ff;
+  border-radius: .6rem;
+  padding: .75rem 1rem;
+  font-size: .8rem;
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.cc-footer { background: #e4e9f2; color: #4a5568; }
+
+@media (max-width: 575.98px) {
+  .hero-temp { font-size: 2.75rem; }
+  .hero-icon { font-size: 3.5rem; }
+  #readinessList .rl-label { width: 100%; }
+  .cc-nav .form-control { min-width: 0; }
+}
