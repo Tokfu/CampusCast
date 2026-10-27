@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CampusCast turns local weather into practical school-day advice for students.">
+  <title>CampusCast | Student Weather</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/commute.css">
+  <link rel="stylesheet" href="css/preparedness.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#today" data-page-link="today" aria-label="CampusCast home">
+      <span class="brand-mark">☀</span>
+      <span class="brand-name">Campus<span>Cast</span></span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-page="today"><span class="nav-icon">◷</span>Today</button>
+      <button class="nav-item" data-page="commute"><span class="nav-icon">⇄</span>Commute</button>
+      <button class="nav-item" data-page="preparedness"><span class="nav-icon">✓</span>Weather tips</button>
+      <button class="nav-item" data-page="about"><span class="nav-icon">ⓘ</span>About</button>
+    </nav>
+
+  </aside>
+
+  <header class="mobile-header">
+    <a class="brand" href="#today" data-page-link="today">
+      <span class="brand-mark">☀</span>
+      <span class="brand-name">Campus<span>Cast</span></span>
+    </a>
+    <button class="menu-button" id="menu-button" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </header>
+
+  <main class="main-content">
+    <div class="topbar">
+      <span class="breadcrumb" id="breadcrumb">CampusCast <span>/</span> Today</span>
+      <span class="topbar-meta"><span class="live-dot"></span> Live weather</span>
+    </div>
+
+    <section class="page-section active" id="page-today">
+      <div class="page-content home-page">
+        <header class="home-intro">
+          <div>
+            <h1>Weather today</h1>
+            <p class="intro-copy">Current conditions and the hourly forecast for your location.</p>
+          </div>
+        </header>
+
+        <div class="search-band">
+          <form class="search-form" id="home-search-form" role="search">
+            <label class="sr-only" for="home-search-input">Find a city or municipality</label>
+            <span class="search-icon">⌕</span>
+            <input id="home-search-input" type="search" placeholder="Find a city or municipality" value="General Trias" autocomplete="off">
+            <button class="button button-primary" type="submit">Search</button>
+          </form>
+          <div class="search-results" id="home-search-results" aria-live="polite"></div>
+          <p class="search-note">Showing General Trias by default. Search to change location.</p>
+        </div>
+
+        <div class="status-panel" id="home-status" role="status" aria-live="polite">Looking up the default location…</div>
+
+        <div class="weather-content" id="weather-dashboard" hidden>
+          <section class="current-grid">
+            <article class="current-card">
+              <div class="current-top">
+                <div>
+                  <p class="current-place" id="current-place">General Trias</p>
+                  <p class="local-date" id="current-date">Local forecast</p>
+                </div>
+              </div>
+              <div class="current-reading">
+                <span class="current-symbol" id="current-symbol">☀</span>
+                <div>
+                  <p class="temperature"><span id="current-temperature">--</span><span class="degree">°C</span></p>
+                  <p class="condition" id="current-condition">Loading conditions</p>
+                  <p class="feels">Feels like <span id="feels-like">--</span>°C</p>
+                </div>
+              </div>
+              <div class="current-summary">
+                <span><strong id="today-high">--°</strong> high</span>
+                <span><strong id="today-low">--°</strong> low</span>
+              </div>
+            </article>
+
+            <div class="metric-area">
+              <article class="metric-card"><span class="metric-icon rain-color">☂</span><span class="metric-label">Rain chance</span><strong id="metric-rain">--</strong></article>
+              <article class="metric-card"><span class="metric-icon wind-color">↝</span><span class="metric-label">Wind</span><strong id="metric-wind">--</strong></article>
+              <article class="metric-card"><span class="metric-icon heat-color">♨</span><span class="metric-label">Humidity</span><strong id="metric-humidity">--</strong></article>
+              <article class="metric-card"><span class="metric-icon uv-color">☼</span><span class="metric-label">UV index</span><strong id="metric-uv">--</strong></article>
+            </div>
+          </section>
+
+          <section class="day-brief">
+            <span class="brief-mark">☂</span>
+            <div><p id="rain-summary">Rain guidance will appear here.</p></div>
+            <button class="text-link" data-page="preparedness">Weather tips <span>→</span></button>
+          </section>
+
+          <section class="hourly-section">
+            <div class="section-heading">
+              <h2>Hourly forecast</h2>
+            </div>
+            <div class="hourly-strip" id="hourly-strip"></div>
+            <p class="data-footnote">Earlier hours are dimmed.</p>
+          </section>
+
+          <section class="day-range">
+            <div><h2>Today's temperature range</h2></div>
+            <div class="range-visual"><span id="range-low">--°</span><div class="range-track"><span></span></div><span id="range-high">--°</span><small>LOW <i></i> HIGH</small></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="page-commute" hidden>
+      <div class="page-content">
+        <header class="page-header">
+          <h1>Commute weather</h1>
+          <p>Compare current weather at your starting point and destination.</p>
+        </header>
+
+        <div class="truth-note"><p>Weather is shown for both locations. Route planning and travel times are not available yet.</p></div>
+
+        <section class="commute-grid">
+          <article class="route-input-card" id="origin-card">
+            <p class="route-kicker"><span class="route-dot origin-dot"></span> Starting point</p>
+            <form class="search-form compact-search" id="origin-search-form">
+              <label class="sr-only" for="origin-search-input">Search your starting location</label>
+              <input id="origin-search-input" type="search" placeholder="Search your starting location" autocomplete="off">
+              <button class="button button-primary" type="submit">Search</button>
+            </form>
+            <div class="search-results" id="origin-search-results" aria-live="polite"></div>
+            <div class="mini-weather" id="origin-weather"><p class="mini-state">Search for a starting point.</p></div>
+          </article>
+
+          <div class="route-middle" aria-hidden="true"><span>→</span></div>
+
+          <article class="route-input-card" id="destination-card">
+            <p class="route-kicker"><span class="route-dot destination-dot"></span> Destination</p>
+            <form class="search-form compact-search" id="destination-search-form">
+              <label class="sr-only" for="destination-search-input">Search your campus or destination</label>
+              <input id="destination-search-input" type="search" placeholder="Search your campus or destination" autocomplete="off">
+              <button class="button button-primary" type="submit">Search</button>
+            </form>
+            <div class="search-results" id="destination-search-results" aria-live="polite"></div>
+            <div class="mini-weather" id="destination-weather"><p class="mini-state">Search for a destination.</p></div>
+          </article>
+        </section>
+
+        <section class="commute-summary">
+          <div class="section-heading"><h2>Weather tips for your trip</h2></div>
+          <div class="advice-columns">
+            <article class="advice-column" id="origin-advice"><p class="mini-state">Weather tips will appear here.</p></article>
+            <article class="advice-column" id="destination-advice"><p class="mini-state">Weather tips will appear here.</p></article>
+          </div>
+          <p class="comparison-callout" id="comparison-callout" hidden>Conditions can change between locations. Check the forecast again before leaving.</p>
+        </section>
+      </div>
+    </section>
+
+    <section class="page-section" id="page-preparedness" hidden>
+      <div class="page-content">
+        <header class="page-header">
+          <h1>Weather tips</h1>
+          <p>Practical suggestions based on the selected location's forecast.</p>
+        </header>
+
+        <div class="prep-context"><span class="prep-context-icon">☀</span><div><strong id="prep-location">Select a location</strong><small id="prep-date">Today's forecast</small></div></div>
+        <form class="search-form prep-search" id="prep-search-form">
+          <label class="sr-only" for="prep-search-input">Find a city or town for your daily preparation</label>
+          <span class="search-icon">⌕</span>
+          <input id="prep-search-input" type="search" placeholder="Search a city or town" autocomplete="off">
+          <button class="button button-primary" type="submit">Search</button>
+        </form>
+        <div class="search-results" id="prep-search-results" aria-live="polite"></div>
+        <p class="uncertainty-note" id="prep-note" hidden></p>
+
+        <section class="prep-grid">
+          <article class="prep-card"><div class="prep-card-top"><span class="prep-icon">☂</span></div><h2>Rain</h2><p id="prep-rain">Checking rain chance…</p><div class="signal-meter"><span>Peak hour rain probability</span><strong id="prep-rain-value">--</strong></div></article>
+          <article class="prep-card"><div class="prep-card-top"><span class="prep-icon">♧</span></div><h2>What to wear</h2><p id="prep-clothing">Checking forecast temperatures…</p></article>
+          <article class="prep-card"><div class="prep-card-top"><span class="prep-icon">♨</span></div><h2>Heat &amp; hydration</h2><p id="prep-heat">Checking feels-like temperature…</p><div class="signal-meter"><span>Highest feels-like temperature</span><strong id="prep-heat-value">--</strong></div></article>
+          <article class="prep-card"><div class="prep-card-top"><span class="prep-icon">☼</span></div><h2>Outdoor plans</h2><p id="prep-outdoor">Checking forecast…</p></article>
+        </section>
+
+        <section class="prep-bottom"><div><h2>Check local weather alerts before travelling in severe conditions.</h2></div><button class="button button-dark" data-page="today">Back to today <span>→</span></button></section>
+      </div>
+    </section>
+
+    <section class="page-section" id="page-about" hidden>
+      <div class="page-content">
+        <header class="page-header about-header">
+          <h1>About CampusCast</h1>
+          <p>Local weather forecasts and practical information to help you plan your day.</p>
+        </header>
+
+        <section class="about-lead"><span class="about-symbol">☁</span><div><h2>Weather for everyday planning</h2><p>Check current conditions, hourly forecasts and rain chances. Use the commute page to compare weather at your starting point and destination.</p></div></section>
+
+        <section class="about-feature-area"><div class="section-heading"><h2>Features</h2></div><div class="about-features">
+          <article><h3>Current weather</h3><p>Temperature, humidity, wind, rain chance and UV index.</p></article>
+          <article><h3>Commute comparison</h3><p>Check the weather at two different locations.</p></article>
+          <article><h3>Weather tips</h3><p>Simple suggestions for rain, clothing, heat and outdoor plans.</p></article>
+        </div></section>
+
+        <section class="data-source"><span class="source-emblem">↗</span><div class="source-copy"><h2>Weather data by Open-Meteo</h2><p>CampusCast uses Open-Meteo's Geocoding API to find locations and Forecast API to retrieve weather information.</p><a class="source-link" href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo website ↗</a></div></section>
+      </div>
+    </section>
+
+    <footer class="app-footer"><span>CampusCast</span></footer>
+  </main>
+</body>
+</html>
